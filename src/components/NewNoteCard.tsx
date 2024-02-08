@@ -41,6 +41,9 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
 
   function handleStartRecording() {
     setIsRecording(true)
+
+    const isSpeechRecognitionAPIAvalible = 'SpeechRecognition' is window
+    || 'webkitSpeechRecognition' in window
   }
 
   function handleStopRecording() {
