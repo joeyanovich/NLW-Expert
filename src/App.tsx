@@ -12,7 +12,7 @@ interface Note {
 export function App() {
   const [search, setSearch] = useState('')
   const [notes, setNotes] = useState<Note[]>(() => {
-    const notesOnStorage = localStorage.getItem('notes')
+  const notesOnStorage = localStorage.getItem('notes')
 
     if (notesOnStorage) {
       return JSON.parse(notesOnStorage)
@@ -32,6 +32,15 @@ export function App() {
 
     setNotes(notesArray)
 
+    localStorage.setItem('notes', JSON.stringify(notesArray))
+  }
+
+  function onNoteDeleted(id: string) {
+    const notesArray = notes.filter(note => {
+      return note.id !== id
+    })
+
+    setNotes(notesArray)
     localStorage.setItem('notes', JSON.stringify(notesArray))
   }
 
@@ -64,7 +73,7 @@ export function App() {
         <NewNoteCard onNoteCreated={onNoteCreated} />
         
         {filteredNotes.map(note => {
-          return <NoteCard key={note.id} note={note} />
+          return <NoteCard key={note.id} note={note} onNoteDeleted={onNoteDeleted} />
         })}
 
       </div>
