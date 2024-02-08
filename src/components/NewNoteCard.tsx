@@ -27,6 +27,10 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
   function handleSaveNote(event: FormEvent) {
     event.preventDefault()
 
+    if (content === '') {
+      return
+    }
+
     onNoteCreated(content)
 
     setContent('')
